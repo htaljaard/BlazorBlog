@@ -25,7 +25,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BlazorBlog.AppHost")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+669bae8ff16c19fdbdc150e3d0a9ff66c9f19bb9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f0fd171b799bb316a0e5727b5cacaca547993c65")]
 [assembly: System.Reflection.AssemblyProductAttribute("BlazorBlog.AppHost")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BlazorBlog.AppHost")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
