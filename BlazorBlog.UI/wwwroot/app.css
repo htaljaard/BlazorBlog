@@ -1,0 +1,8 @@
+/* Custom background color class using CSS variable */
+
+:root {
+    --app-bg-primary: #3e1f47;
+
+    --primary: #3e1f47 !important;
+    --secondary: #4895ef !important;
+}

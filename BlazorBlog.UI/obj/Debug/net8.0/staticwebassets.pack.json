@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\code\\BlazorBlog\\BlazorBlog.UI\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BlazorBlog.UI.bundle.scp.css",
+      "PackagePath": "staticwebassets\\BlazorBlog.UI.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\code\\BlazorBlog\\BlazorBlog.UI\\wwwroot\\app.css",
+      "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "C:\\code\\BlazorBlog\\BlazorBlog.UI\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.BlazorBlog.UI.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.BlazorBlog.UI.props",
+      "PackagePath": "build\\BlazorBlog.UI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.BlazorBlog.UI.props",
+      "PackagePath": "buildMultiTargeting\\BlazorBlog.UI.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.BlazorBlog.UI.props",
+      "PackagePath": "buildTransitive\\BlazorBlog.UI.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
