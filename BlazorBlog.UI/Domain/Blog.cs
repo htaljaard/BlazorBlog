@@ -28,4 +28,6 @@ public class Blog
 
     public Boolean isPublished { get; set; } = false;
 
+    public string? BlogImageUrl { get; set; }
+
 }

@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BlazorBlog.MigrationService\BlazorBlog.MigrationService.csproj" />
     <ProjectReference Include="..\BlazorBlog.UI\BlazorBlog.UI.csproj" />
   </ItemGroup>
 

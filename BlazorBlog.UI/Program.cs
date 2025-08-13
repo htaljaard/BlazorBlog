@@ -8,11 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-
-
 builder.Services.AddDbContext<BlogDBContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("blogDb")));
 
+builder.AddServiceDefaults();
 
 var app = builder.Build();
 
@@ -31,5 +30,7 @@ app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
+
+app.MapDefaultEndpoints();
 
 app.Run();
