@@ -1,10 +1,18 @@
 using BlazorBlog.UI.Components;
+using BlazorBlog.UI.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+
+
+builder.Services.AddDbContext<BlogDBContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("blogDb")));
+
 
 var app = builder.Build();
 
