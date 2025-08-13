@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Components.Routing
+
+<nav class="navbar navbar-expand-lg text-white app-bg-primary">
+    <div class="container justify-content-between">
+        <NavLink class="navbar-brand text-white" ActiveClass="active" href="/">BlogApp</NavLink>
+        <div>
+            <NavLink class="nav-link" ActiveClass="active" href="/about">About</NavLink>
+        </div>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle btn-light" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Menu
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <button class="dropdown-item" type="button">Action</button>
+                <button class="dropdown-item" type="button">Another action</button>
+                <button class="dropdown-item" type="button">Something else here</button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+@code {
+
+}
