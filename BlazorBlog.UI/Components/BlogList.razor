@@ -1,0 +1,18 @@
+﻿@using BlazorBlog.UI.Data
+@using BlazorBlog.UI.Domain
+@using Microsoft.EntityFrameworkCore
+@inject BlogDBContext BlogDBContext
+<h3>Latest Blogs</h3>
+
+@foreach (var blog in blogs)
+{
+    <BlogCard Post="@blog" />
+}
+
+@code {
+    private List<Blog> blogs = new();
+    protected override async Task OnInitializedAsync()
+    {
+        blogs = await BlogDBContext.Blogs.ToListAsync();
+    }
+}

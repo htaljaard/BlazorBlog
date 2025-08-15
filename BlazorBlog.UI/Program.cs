@@ -11,6 +11,7 @@ builder.Services.AddRazorComponents()
 builder.Services.AddDbContext<BlogDBContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("blogDb")));
 
+builder.Services.AddBlazorBootstrap();
 builder.AddServiceDefaults();
 
 var app = builder.Build();

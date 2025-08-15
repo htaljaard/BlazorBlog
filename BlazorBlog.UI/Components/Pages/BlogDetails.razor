@@ -1,0 +1,52 @@
+@page "/blog/{slug}"
+@using BlazorBlog.UI.Data
+@using BlazorBlog.UI.Domain
+@using Microsoft.EntityFrameworkCore
+@inject BlogDBContext DbContext
+@inject NavigationManager Navigation
+
+
+
+@if (notFound)
+{
+    <h3>Blog not found</h3>
+    <NavLink href="/" class="btn btn-primary">Back to Home</NavLink>
+
+}
+else if (blog != null)
+{
+    <div class="blog-details mt-4">
+        <div class="d-flex justify-content-center">
+            <img src="@blog.BlogImageUrl" class="img-fluid rounded mb-3" alt="@blog.Title" />
+        </div>
+        <h1>@blog.Title</h1>
+        <p>@blog.Created.ToShortDateString()</p>
+        <div>@((MarkupString)blog.Content)</div>
+    </div>
+}
+else
+{
+    <p>Loading...</p>
+}
+
+@code {
+    [Parameter]
+    public string Slug { get; set; } = string.Empty;
+
+    private Blog? blog;
+    private bool notFound = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (string.IsNullOrEmpty(Slug))
+        {
+            notFound = true;
+            return;
+        }
+        blog = await DbContext.Blogs.FirstOrDefaultAsync(b => b.Slug == Slug);
+        if (blog == null)
+        {
+            notFound = true;
+        }
+    }
+}
