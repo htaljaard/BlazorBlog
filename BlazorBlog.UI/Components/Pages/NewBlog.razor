@@ -1,62 +1,97 @@
 ﻿@page "/blog/new"
+@using BlazorBlog.UI.Domain
+@using Microsoft.EntityFrameworkCore
+
+@inject BlazorBlog.UI.Data.BlogDBContext DbContext
 
 <div class="mt-3 bg-light p-3 rounded-3 shadow">
     <h3>Start a New Blog Post</h3>
+
+
     <EditForm Model="blog" OnValidSubmit="HandleValidSubmit" FormName="newBlogForm">
         <DataAnnotationsValidator />
         <ValidationSummary />
-        <div class="row">
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="title" class="form-label">Title</label>
-                    <InputText id="title" class="form-control" @bind-Value="blog.Title" />
-                    <ValidationMessage For="@(() => blog.Title)" />
-                </div>
-                <div class="mb-3">
-                    <label for="slug" class="form-label">Slug</label>
-                    <InputText id="slug" class="form-control" @bind-Value="blog.Slug" />
-                    <ValidationMessage For="@(() => blog.Slug)" />
-                </div>
-                <div class="mb-3">
-                    <label for="excerpt" class="form-label">Excerpt</label>
-                    <InputText id="excerpt" class="form-control" @bind-Value="blog.Excerpt" />
-                    <ValidationMessage For="@(() => blog.Excerpt)" />
-                </div>
-                <div class="mb-3">
-                    <label for="author" class="form-label">Author</label>
-                    <InputText id="author" class="form-control" @bind-Value="blog.Author" />
-                    <ValidationMessage For="@(() => blog.Author)" />
-                </div>
-                <div class="mb-3">
-                    <label for="blogImageUrl" class="form-label">Blog Image URL</label>
-                    <InputText id="blogImageUrl" class="form-control" @bind-Value="blog.BlogImageUrl" />
-                    <ValidationMessage For="@(() => blog.BlogImageUrl)" />
-                </div>
-                <div class="mb-3">
-                    <label for="created" class="form-label">Created</label>
-                    <InputDate id="created" class="form-control" @bind-Value="blog.Created" />
-                    <ValidationMessage For="@(() => blog.Created)" />
-                </div>
-                <div class="form-check mb-3">
-                    <InputCheckbox id="isPublished" class="form-check-input" @bind-Value="blog.isPublished" />
-                    <label for="isPublished" class="form-check-label">Published</label>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="content" class="form-label">Content</label>
-                    <textarea id="content" class="form-control" style="height: 400px;" @bind="blog.Content"></textarea>
-                    <ValidationMessage For="@(() => blog.Content)" />
-                </div>
-            </div>
-        </div>
+        <Tabs @ref="tabs">
+            <Tab Title="Blog Metadata" Active="true">
+                <Content>
+                    <div class="row mt-3 mb-3">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="title" class="form-label">Title</label>
+                                <InputText id="title" class="form-control" @bind-Value="blog.Title" />
+                                <ValidationMessage For="@(() => blog.Title)" class="text-danger" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="slug" class="form-label">Slug</label>
+                                <InputText id="slug" class="form-control" @bind-Value="blog.Slug" />
+                                <ValidationMessage For="@(() => blog.Slug)" class="text-danger" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="excerpt" class="form-label">Excerpt</label>
+                                <InputText id="excerpt" class="form-control" @bind-Value="blog.Excerpt" />
+                                <ValidationMessage For="@(() => blog.Excerpt)" class="text-danger" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="author" class="form-label">Author</label>
+                                <InputText id="author" class="form-control" @bind-Value="blog.Author" />
+                                <ValidationMessage For="@(() => blog.Author)" class="text-danger" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="blogImageUrl" class="form-label">Blog Image URL</label>
+                                <InputText id="blogImageUrl" class="form-control" @bind-Value="blog.BlogImageUrl" />
+                                <ValidationMessage For="@(() => blog.BlogImageUrl)" class="text-danger" />
+                            </div>
+                            @* <div class="mb-3">
+                                <label for="created" class="form-label">Created</label>
+                                <InputDate id="created" class="form-control" @bind-Value="blog.Created" />
+                                <ValidationMessage For="@(() => blog.Created)" class="text-danger" />
+                            </div> *@
+                            <div class="form-check mb-3">
+                                <InputCheckbox id="isPublished" class="form-check-input"
+                                    @bind-Value="blog.isPublished" />
+                                <label for="isPublished" class="form-check-label">Published</label>
+                            </div>
+                        </div>
+                    </div>
+                </Content>
+            </Tab>
+            <Tab Title="Blog Content">
+                <Content>
+                    <div class="row mt-3 mb-3">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="content" class="form-label">Content</label>
+                                <textarea id="content" class="form-control" style="height: 400px;" @bind="blog.Content"
+                                    @bind:event="oninput"></textarea>
+                                <ValidationMessage For="@(() => blog.Content)" class="text-danger" />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <Markdown>@blog.Content</Markdown>
+                        </div>"
+                    </div>
+                </Content>
+            </Tab>
+        </Tabs>
         <button type="submit" class="btn btn-primary">Submit</button>
     </EditForm>
+    @if (isSubmitted && isSuccessful)
+    {
+        <Alert class="mt-3" Color="AlertColor.Success" Dismissable ref="alert">Your blog post has been created successfully!
+        </Alert>
+    }
+
+    @if (isSubmitted && !isSuccessful)
+    {
+        <Alert class="mt-3" Color="AlertColor.Danger" Dismissable ref="alert">There was an error creating your blog post.
+            Please try again. @errorMessage
+        </Alert>
+    }
 </div>
 
 
 @code {
-    private BlazorBlog.UI.Domain.Blog blog = new()
+    private Blog blog = new()
     {
         Id = Guid.NewGuid(),
         Slug = string.Empty,
@@ -64,14 +99,58 @@
         Content = string.Empty,
         Excerpt = string.Empty,
         Author = string.Empty,
-        Created = DateTime.Now
+        Created = DateTime.Now.ToUniversalTime()
     };
 
+    Tabs? tabs = default;
+    bool isSubmitted = false;
+    bool isSuccessful = false;
 
+    string errorMessage = string.Empty;
+
+
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            tabs?.ShowTabByIndexAsync(0);
+        }
+    }
 
     private void HandleValidSubmit()
     {
-        // Save logic here
+        isSubmitted = true;
+        try
+        {
+            DbContext.Blogs.Add(blog);
+            DbContext.SaveChanges();
+            isSuccessful = true;
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+            isSubmitted = true;
+            isSuccessful = false;
+            return;
+        }
+        finally
+        {
+            @* blog = new Blog
+            {
+                Id = Guid.NewGuid(),
+                Slug = string.Empty,
+                Title = string.Empty,
+                Content = string.Empty,
+                Excerpt = string.Empty,
+                Author = string.Empty,
+                Created = DateTime.UtcNow
+            }; *@
+            StateHasChanged();
+        }
+
+
+
     }
 
 
