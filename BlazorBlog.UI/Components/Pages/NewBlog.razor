@@ -11,68 +11,57 @@
     <EditForm Model="blog" OnValidSubmit="HandleValidSubmit" FormName="newBlogForm">
         <DataAnnotationsValidator />
         <ValidationSummary />
-        <Tabs @ref="tabs">
-            <Tab Title="Blog Metadata" Active="true">
-                <Content>
-                    <div class="row mt-3 mb-3">
-                        <div class="col">
-                            <div class="mb-3">
-                                <label for="title" class="form-label">Title</label>
-                                <InputText id="title" class="form-control" @bind-Value="blog.Title" />
-                                <ValidationMessage For="@(() => blog.Title)" class="text-danger" />
-                            </div>
-                            <div class="mb-3">
-                                <label for="slug" class="form-label">Slug</label>
-                                <InputText id="slug" class="form-control" @bind-Value="blog.Slug" />
-                                <ValidationMessage For="@(() => blog.Slug)" class="text-danger" />
-                            </div>
-                            <div class="mb-3">
-                                <label for="excerpt" class="form-label">Excerpt</label>
-                                <InputText id="excerpt" class="form-control" @bind-Value="blog.Excerpt" />
-                                <ValidationMessage For="@(() => blog.Excerpt)" class="text-danger" />
-                            </div>
-                            <div class="mb-3">
-                                <label for="author" class="form-label">Author</label>
-                                <InputText id="author" class="form-control" @bind-Value="blog.Author" />
-                                <ValidationMessage For="@(() => blog.Author)" class="text-danger" />
-                            </div>
-                            <div class="mb-3">
-                                <label for="blogImageUrl" class="form-label">Blog Image URL</label>
-                                <InputText id="blogImageUrl" class="form-control" @bind-Value="blog.BlogImageUrl" />
-                                <ValidationMessage For="@(() => blog.BlogImageUrl)" class="text-danger" />
-                            </div>
-                            @* <div class="mb-3">
+        <div class="row mt-3 mb-3">
+            <div class="col">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <InputText id="title" class="form-control" @bind-Value="blog.Title" />
+                    <ValidationMessage For="@(() => blog.Title)" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="slug" class="form-label">Slug</label>
+                    <InputText id="slug" class="form-control" @bind-Value="blog.Slug" />
+                    <ValidationMessage For="@(() => blog.Slug)" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="excerpt" class="form-label">Excerpt</label>
+                    <InputText id="excerpt" class="form-control" @bind-Value="blog.Excerpt" />
+                    <ValidationMessage For="@(() => blog.Excerpt)" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="author" class="form-label">Author</label>
+                    <InputText id="author" class="form-control" @bind-Value="blog.Author" />
+                    <ValidationMessage For="@(() => blog.Author)" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="blogImageUrl" class="form-label">Blog Image URL</label>
+                    <InputText id="blogImageUrl" class="form-control" @bind-Value="blog.BlogImageUrl" />
+                    <ValidationMessage For="@(() => blog.BlogImageUrl)" class="text-danger" />
+                </div>
+                @* <div class="mb-3">
                                 <label for="created" class="form-label">Created</label>
                                 <InputDate id="created" class="form-control" @bind-Value="blog.Created" />
                                 <ValidationMessage For="@(() => blog.Created)" class="text-danger" />
                             </div> *@
-                            <div class="form-check mb-3">
-                                <InputCheckbox id="isPublished" class="form-check-input"
-                                    @bind-Value="blog.isPublished" />
-                                <label for="isPublished" class="form-check-label">Published</label>
-                            </div>
-                        </div>
-                    </div>
-                </Content>
-            </Tab>
-            <Tab Title="Blog Content">
-                <Content>
-                    <div class="row mt-3 mb-3">
-                        <div class="col">
-                            <div class="mb-3">
-                                <label for="content" class="form-label">Content</label>
-                                <textarea id="content" class="form-control" style="height: 400px;" @bind="blog.Content"
-                                    @bind:event="oninput"></textarea>
-                                <ValidationMessage For="@(() => blog.Content)" class="text-danger" />
-                            </div>
-                        </div>
-                        <div class="col">
-                            <Markdown>@blog.Content</Markdown>
-                        </div>"
-                    </div>
-                </Content>
-            </Tab>
-        </Tabs>
+                <div class="form-check mb-3">
+                    <InputCheckbox id="isPublished" class="form-check-input" @bind-Value="blog.isPublished" />
+                    <label for="isPublished" class="form-check-label">Published</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3 mb-3">
+            <div class="col">
+                <div class="mb-3">
+                    <label for="content" class="form-label">Content</label>
+                    <textarea id="content" class="form-control" style="height: 400px;" @bind="blog.Content"
+                        @bind:event="oninput"></textarea>
+                    <ValidationMessage For="@(() => blog.Content)" class="text-danger" />
+                </div>
+            </div>
+            <div class="col">
+                <Markdown>@blog.Content</Markdown>
+            </div>
+        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </EditForm>
     @if (isSubmitted && isSuccessful)

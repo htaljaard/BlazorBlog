@@ -1,9 +1,10 @@
 using BlazorBlog.UI.Domain;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlazorBlog.UI.Data;
 
-public class BlogDBContext : DbContext
+public class BlogDBContext : IdentityDbContext<ApplicationUser>
 {
     public DbSet<Blog> Blogs { get; set; }
 
@@ -14,6 +15,8 @@ public class BlogDBContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+        
         modelBuilder.Entity<Blog>()
                     .ToTable("blogs");
 
