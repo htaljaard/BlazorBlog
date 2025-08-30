@@ -1,3 +1,9 @@
+/* Ensures blog images never exceed 100px in height */
+.blog-img-max-height {
+    max-height: 100px;
+    height: auto;
+    width: auto;
+}
 /* Custom background color class using CSS variable */
 
 :root {

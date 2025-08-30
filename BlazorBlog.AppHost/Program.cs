@@ -5,6 +5,7 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 var postgres = builder.AddPostgres("postgres")
                       .WithContainerName("blogdb_postgres")
+                      .WithHostPort(55498)
                       .WithPgAdmin()
                       .WithPgWeb()
                       .WithLifetime(ContainerLifetime.Persistent);

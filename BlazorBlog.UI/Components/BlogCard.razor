@@ -3,13 +3,16 @@
 <div class="card mb-3">
     <div class="row">
         <div class="col-md-4">
-            <img src="@Post?.BlogImageUrl" class="img-fluid rounded-start" alt="@Post?.Title" />
+            <img src="@Post?.BlogImageUrl" class="img-fluid rounded-start blog-img-max-height" alt="@Post?.Title" />
         </div>
         <div class="col-md-8">
             <div class="card-body">
                 <h5 class="card-title">@Post?.Title</h5>
                 <p class="card-text">@Post?.Excerpt</p>
                 <NavLink href="@($"/blog/{Post?.Slug}")" class="btn btn-primary">Read More</NavLink>
+            </div>
+            <div class="card-footer text-muted">
+                Posted by @Post?.Author on @Post?.Created.ToString("MMMM dd, yyyy")
             </div>
         </div>
     </div>

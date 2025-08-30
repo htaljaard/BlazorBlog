@@ -1,18 +1,34 @@
-﻿@using BlazorBlog.UI.Data
+﻿@using BlazorBlog.UI.Components.Account
+@using BlazorBlog.UI.Data
 @using BlazorBlog.UI.Domain
+@using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.EntityFrameworkCore
+@inject IdentityUserAccessor UserAccessor
 @inject BlogDBContext BlogDBContext
 <h3>Latest Blogs</h3>
 
+<AuthorizeView>
+    <Authorized>
+        <h6>Hello @user?.UserName</h6>
+    </Authorized>
+</AuthorizeView>
 @foreach (var blog in blogs)
 {
     <BlogCard Post="@blog" />
 }
 
 @code {
+
+    [CascadingParameter]
+    HttpContext context { get; set; } = default!;
     private List<Blog> blogs = new();
+    private ApplicationUser user = default!;
+
+
     protected override async Task OnInitializedAsync()
     {
         blogs = await BlogDBContext.Blogs.ToListAsync();
+
+        user = await UserAccessor.GetRequiredUserAsync(context);
     }
 }
